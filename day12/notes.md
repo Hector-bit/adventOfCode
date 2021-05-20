@@ -24,3 +24,6 @@ Left and Right rotations.
 
 ok so the rotation can be written down into two if statements and
 its easyi to read so idk
+
+Ok so after taking some time I was able to make my original code work but I still needed help, so this makes it
+like the third time I had to look up a solution

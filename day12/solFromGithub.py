@@ -1,6 +1,6 @@
 import fileinput
 
-L = [l.strip() for l in fileinput.input('test.txt')]
+L = [l.strip() for l in fileinput.input('data.txt')]
 
 # Why (x,y) vs. (r,c)?
 # Here we're on a plane instead of a grid, so (x,y) is a better coordinate system (more "mathy").

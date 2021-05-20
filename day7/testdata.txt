@@ -1,0 +1,5 @@
+shiny gold bags contain 2 bgf bgf bags, 1 qwer qwer bag.
+bgf bgf bags contains 1 asdf asdf bag, 2 qwer qwer bags.
+qwer qwer bags contains 4 asdf asdf bags, 1 ghjk ghjk bag.
+asdf asdf bags contain 5 ghjk ghjk bags.
+ghjk ghjk bags contain no other bags.

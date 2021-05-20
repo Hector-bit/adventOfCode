@@ -1,58 +1,108 @@
-from os import posix_fallocate
-from typing import DefaultDict
+quadrant = 0
 
+def which_quadrantXL(quad, x, deg):
+    new_quad = (360 + (quad - deg)) % 360
+    print(new_quad)
+    if new_quad == 0:
+        return abs(x)
+    elif new_quad == 90:
+        return abs(x)
+    elif new_quad == 180:
+        return abs(x) * -1
+    elif new_quad == 270:
+        return abs(x) * -1
 
-def numbers_to_strings(argument):
-    switcher = {
-        0: "zero",
-        1: "one",
-        2: "two",
-    }
+def which_quadrantXR(quad, x, deg):
+    new_quad = (360 + (quad + deg)) % 360
+    print(new_quad)
+    if new_quad == 0:
+        return abs(x)
+    elif new_quad == 90:
+        return abs(x)
+    elif new_quad == 180:
+        return abs(x) * -1
+    elif new_quad == 270:
+        return abs(x) * -1
 
-def move_Here(direction, distance, pos):
-    if direction == 90:
-        pos[0] += distance
-    elif direction == 180:
-        pos[1] += -distance
-    elif direction == 270:
-        pos[0] += -distance
-    elif direction == 0 or direction == 360:
-        pos[1] += distance
-    print("new pos: ", pos)
-    return pos
+def which_quadrantYL(quad, y, deg):
+    new_quad = (360 + (quad - deg)) % 360
+    if new_quad == 0:
+        return abs(y)
+    elif new_quad == 90:
+        return abs(y) * -1
+    elif new_quad == 180:
+        return abs(y) * -1
+    elif new_quad == 270:
+        return abs(y)
+
+def which_quadrantYR(quad, y, deg):
+    new_quad = (360 + (quad + deg)) % 360
+    if new_quad == 0:
+        return abs(y)
+    elif new_quad == 90:
+        return abs(y) * -1
+    elif new_quad == 180:
+        return abs(y) * -1
+    elif new_quad == 270:
+        return abs(y)
+
+def rotate_around_the_boat(ist, amt, old_waypoint):
+    new_waypoint = old_waypoint
+    tempx = new_waypoint[0]
+    tempy = new_waypoint[1]
+    global quadrant
+    if amt == 180:
+        new_waypoint[0] = -tempx
+        new_waypoint[1] = -tempy
+    if ist == "L":
+        new_waypoint[0] = which_quadrantXL(quadrant, tempy, amt)
+        new_waypoint[1] = which_quadrantYL(quadrant, tempx, amt)
+    if ist == "R":
+        new_waypoint[0] = which_quadrantXR(quadrant, tempy, amt)
+        new_waypoint[1] = which_quadrantYR(quadrant, tempx, amt)
+    return new_waypoint
+
+def move_the_waypoint(ist, amt, old_waypoint):
+    new_waypoint = old_waypoint
+    if ist == "N":
+        #move waypoint n
+        new_waypoint[1] = new_waypoint[1] + amt
+    elif ist == "S":
+        #move the waypoint south
+        new_waypoint[1] = new_waypoint[1] - amt
+    elif ist == "W":
+        #move the waypoint west 
+        new_waypoint[0] = new_waypoint[0] - amt
+    elif ist == "E":
+        #move the waypoint east
+        new_waypoint[0] = new_waypoint[0] + amt
+    return new_waypoint
+
+def boat_move(bb, dd, ww):
+    bb[0] += ww[0] * dd
+    bb[1] += ww[1] * dd
+    # print(bb)
+    return bb
 
 with open('data.txt') as raw_input:
-    waypoint = [10, 1]
-    facing = 90
-    position = [0, 0]
-    dictionary_for_directions = {
-        "E": 90,
-        "S": 180,
-        "N": 0,
-        "W": 270
-    }
+    big_boat = [0,0]
+    waypoint = [10,1]
+    rotation = ["L", "R"]
+    move_waypoint = ["N", "S", "W", "E"]
     for i in raw_input:
-        instru = i[:1]
-        measure = int(i[1:])
-        if instru in dictionary_for_directions:
-            print(instru, "this gfam here")
-            temp = 0
-            temp += facing
-            facing = dictionary_for_directions.get(instru)
-            # print(facing, 'not the temp', temp, '<-- tmep')
-            position = move_Here(facing, measure, position)
-            facing = temp % 360
-        elif instru == "R":
-            facing += measure
-            facing = (facing % 360)
-            # print(facing, "from the tihihg")
-            # pos = move_Here(facing, measure, position)
-        elif instru == "L":
-            facing -= measure
-            facing = (facing % 360)
-        elif instru == "F":
-            print("found the F", instru)
-            position = move_Here(facing, measure, position)
-            # print("new pos from F: ", pos)
-    print("Facing: ", facing, " Position: ", position)
-    print(abs(position[0]) + abs(position[1]))
+        instruction = i[:1]
+        measure = i[1:]
+        # print(instruction, measure)
+        if instruction in rotation:
+            #will flip the waypoint
+            waypoint = rotate_around_the_boat(instruction, int(measure), waypoint)
+        elif instruction in move_waypoint:
+            #will move the waypoint relative to the boat
+            waypoint = move_the_waypoint(instruction, int(measure), waypoint)
+        elif instruction == "F":
+            #moves the boat forward towards the waypoint
+            big_boat = boat_move(big_boat, int(measure), waypoint)
+    print(big_boat, waypoint)
+    print(abs(big_boat[0]) + abs(big_boat[1]))
+
+        

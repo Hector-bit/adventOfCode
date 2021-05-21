@@ -4,3 +4,8 @@ Part one --
     part is that it doesn't give me time stamps
 
     ok now I get it, I have to figure out the buses next stop and then take the earlist one
+
+    yeah, part one was pretty easy
+
+Part two -- 
+    

@@ -16,14 +16,12 @@ def check(arr, time):
     return True
 
 def partTwo(arr, time):
-    myBool = True
-    while myBool:
-        if time % int(arr[23]) == 0:
-            print("Checking this time ==> ", time)
-            if check(arr, time):
-                print("check this one out ", time)
-                return time
-        time += 1
+    #without the chinese remainder theorum
+    mod_me = 0
+    
+
+        
+
 
 with open('data.txt') as raw_input:
     busses = []

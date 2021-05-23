@@ -8,4 +8,16 @@ Part one --
     yeah, part one was pretty easy
 
 Part two -- 
+    I hate this part so much, I think this is the longest I have ever taken on a problem,
+    I couldn't get my original code to run and as a punishment I will learn the CRT in order
+    to nail this type of problem in to my head but the thing is that there is a lot to learn 
+    First:
+        the CRT uses modular math which I don't any of beside what mod does
+    Second:
+        I have to learn about how to get the inverse of a mod, which I didn't 
+        know was a thing up until now
+    Third:
+        I don't know how to implement this kind of thing
     
+    I just feel dumb for trying to find the point of intersection of multiple lines that
+    never meet

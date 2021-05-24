@@ -19,5 +19,5 @@ Part two --
     Third:
         I don't know how to implement this kind of thing
     
-    I just feel dumb for trying to find the point of intersection of multiple lines that
-    never meet
+    I had to look up a solution because I couldn't figure out how to 
+    implement the CRT and I also didn't fully comprehend how it works

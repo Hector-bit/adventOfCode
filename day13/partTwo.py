@@ -1,13 +1,15 @@
 from os import terminal_size
+from typing import TYPE_CHECKING
 
 #BELOW IS PROBLEM DATA
-time = 1000002632
+time = 0
 arrival = 1002632
 #BELOW IS TEST DATA
 # time = 939
 # arrival = 939
 
 def check(arr, time):
+    time -= 24
     for i in arr:
         if i != '':
             if time % int(i) != 0:
@@ -15,13 +17,29 @@ def check(arr, time):
         time += 1
     return True
 
-def partTwo(arr, time):
-    #without the chinese remainder theorum
-    mod_me = 0
-    
+def check_mod(timestamp, arr):
+    # print(arr)
+    for i in arr:
+        # print("timestamp: ", timestamp, " moding by: ", i)
+        if i != '':
+            mathy = timestamp % int(i)
+            print("Timestamp: ", timestamp, " Moded: ", i, " Mathy: ", mathy)
+            if mathy != 0:
+                return False
+        timestamp += 1
+    return True
 
-        
-
+def partTwo(arr):
+    #this will my own solution
+    # thingy = int(arr[0])
+    thingy = 0
+    while True:
+        myMath = thingy % int(arr[0])
+        if myMath == 0:
+            if check_mod(thingy, arr):
+                print("pick it up bitch")
+                return thingy
+        thingy += int(arr[0])
 
 with open('data.txt') as raw_input:
     busses = []
@@ -33,4 +51,6 @@ with open('data.txt') as raw_input:
                 temp = ""
             elif j.isnumeric():
                 temp += j 
-    print(partTwo(busses, time))
+        busses.append(temp)
+    # print("looky here: ", busses)
+    print(partTwo(busses))

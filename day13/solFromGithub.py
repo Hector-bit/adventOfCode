@@ -59,9 +59,6 @@ for i,b in enumerate(B):
 ans = 0
 # x % b = i
 for i,b in constraints:
-    print("==>", constraints)
-    print("I: ", i)
-    print("B: ", b)
     NI = N/b
     NI = int(NI)
     # NI is the product of the *other* bus IDs

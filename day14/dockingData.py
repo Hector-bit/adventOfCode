@@ -1,17 +1,21 @@
 
 
 
-def mem_operation(bitmask, memory):
-    print(bitmask, memory)
-    loopMe = bin(int(memory))[2:]
-    print(loopMe, "<== here")
+def mem_operation(bitmask, value):
+    loopMe = bin(int(value))[2:]
+    print(loopMe, "<== before")
+    bitArray = list(bitmask)
     for i in range(len(loopMe), -1, -1):
         if bitmask[i] == 'X':
-            bitArray = list(bitmask)
-            print(bitArray, "<== should be an array")
+            # bitArray = list(bitmask)
+            # print(bitArray, "BRUH")
             bitArray[35 - i] = loopMe[len(loopMe) - 1]
-            bitmask = "".join(bitArray)
-    return bitmask
+    for i in range(len(bitArray)):
+        if bitArray[i] == 'X':
+            bitArray[i] = '0'
+    bitmask = "".join(bitArray)
+    # print(bitArray, "<== after!!!")
+    return int(bitmask[1:-1], 2)
 
 def add_up_the_array(arr):
     adder = 0
@@ -20,8 +24,10 @@ def add_up_the_array(arr):
     return adder
 
 with open('test.txt') as raw_intput:
+    #this dictionary will hold the memory address as the key and 
+    #the value will be integer value of the mem_operation we did on whatever bitmask we had
     smart_dict = {}
-    sum_of_arrays = []
+    # sum_of_arrays = []
     current_mask = 'Nothing'
     for i in raw_intput:
         # print(i.split('='))
@@ -34,8 +40,9 @@ with open('test.txt') as raw_intput:
                 #change the mem using the mask
                 #and then add it back to the sum_of_arrays
                 #but if its all ready there then it needs to be replaced
-            myElse = splitted[0].split('[')
-            memory = int(myElse[1].replace("] ", ""))
-            print(memory, type(memory))
-            print(mem_operation(current_mask[1: -1], splitted[1]))
-    print(sum_of_arrays)
+            temp = splitted[0].split('[')
+            value = splitted[1]
+            address = int(temp[1].replace("] ", ""))
+            # print(mem_operation(current_mask, value))
+            smart_dict[address] = mem_operation(current_mask, value)
+    print(smart_dict)

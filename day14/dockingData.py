@@ -2,20 +2,26 @@
 
 
 def mem_operation(bitmask, value):
-    loopMe = bin(int(value))[2:]
+    loopMe = list(bin(int(value))[2:])
     print(loopMe, "<== before")
-    bitArray = list(bitmask)
-    for i in range(len(loopMe), -1, -1):
-        if bitmask[i] == 'X':
+    bitArray = list(bitmask)[0:-1]
+    # print(len(bitArray), "dick size")
+    for i in range(len(loopMe) - 1, -1, -1):
+        print(i)
+        if bitArray[35 - i] == 'X':
             # bitArray = list(bitmask)
-            # print(bitArray, "BRUH")
+            print(bitArray, "BRUH")
             bitArray[35 - i] = loopMe[len(loopMe) - 1]
+    # for i in range(len(bitArray)):
+    #     # if bitArray[i] == 'X':
+    #     temparr = list(bitmask)
+    #     bitArray[i] = temparr[i]
     for i in range(len(bitArray)):
         if bitArray[i] == 'X':
             bitArray[i] = '0'
-    bitmask = "".join(bitArray)
-    # print(bitArray, "<== after!!!")
-    return int(bitmask[1:-1], 2)
+    bitArray = "".join(bitArray)
+    print(bitArray, "<== after!!!", int(bitArray, 2))
+    return int(bitArray, 2)
 
 def add_up_the_array(arr):
     adder = 0
@@ -31,18 +37,24 @@ with open('test.txt') as raw_intput:
     current_mask = 'Nothing'
     for i in raw_intput:
         # print(i.split('='))
-        splitted = i.split('=')
-        if splitted[0] == "mask ":
+        splitted = i.split(' = ')
+        value = splitted[1]
+        # print("triple check clean data", value)
+        if splitted[0] == 'mask':
             current_mask = splitted[1]
+        elif int(splitted[0][4:-1]) in smart_dict.keys():
+            print('Mask', current_mask)
+            address = int(splitted[0][4:-1])
+            # print('it is in the motherfucking smart dictionary', address)
+            smart_dict[address] = mem_operation(current_mask, smart_dict[address])
         else:
+            print('amsk', current_mask)
             #so here we get a change in the memory
             #so this piece of code needs to 
                 #change the mem using the mask
                 #and then add it back to the sum_of_arrays
                 #but if its all ready there then it needs to be replaced
-            temp = splitted[0].split('[')
-            value = splitted[1]
-            address = int(temp[1].replace("] ", ""))
             # print(mem_operation(current_mask, value))
+            address = int(splitted[0][4:-1])
             smart_dict[address] = mem_operation(current_mask, value)
     print(smart_dict)

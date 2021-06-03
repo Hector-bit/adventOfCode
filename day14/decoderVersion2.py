@@ -25,9 +25,12 @@ with open('data.txt') as raw_intput:
     for i in raw_intput:
         splitted = i.split(' = ')
         value = splitted[1]
+        #if its a mask then update to the current mask var
         if splitted[0] == 'mask':
             current_mask = splitted[1]
+        #if its a mem then create a key val pair, but check its already in the smart_dict
         elif int(splitted[0][4:-1]) in smart_dict.keys():
+            #
             address = int(splitted[0][4:-1])
             smart_dict[address] = mem_operation(current_mask, value)
         else:

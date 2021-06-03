@@ -12,4 +12,4 @@ Day 14
     
     Part Two:
         Confusing so, I still don't understand the problem so imma keep reading
-        
+        Ok, now i get it, I didn't realise that two of previous memorys were being overwritten

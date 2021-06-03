@@ -3,15 +3,13 @@
 
 def mem_operation(bitmask, value):
     loopMe = list(bin(int(value))[2:])
-    print(loopMe, "<== before")
     bitArray = list(bitmask)[0:-1]
+    # print(loopMe, "Here seperater", bitArray)
     # print(len(bitArray), "dick size")
-    for i in range(len(loopMe) - 1, -1, -1):
-        print(i)
-        if bitArray[35 - i] == 'X':
+    for i in range(len(loopMe)):
+        if bitArray[len(bitArray)-1 - i] == 'X':
             # bitArray = list(bitmask)
-            print(bitArray, "BRUH")
-            bitArray[35 - i] = loopMe[len(loopMe) - 1]
+            bitArray[len(bitArray)-1 - i] = loopMe[len(loopMe) - 1 -i]
     # for i in range(len(bitArray)):
     #     # if bitArray[i] == 'X':
     #     temparr = list(bitmask)
@@ -20,16 +18,16 @@ def mem_operation(bitmask, value):
         if bitArray[i] == 'X':
             bitArray[i] = '0'
     bitArray = "".join(bitArray)
-    print(bitArray, "<== after!!!", int(bitArray, 2))
+    # print(bitArray, "<== after!!!", int(bitArray, 2))
     return int(bitArray, 2)
 
-def add_up_the_array(arr):
-    adder = 0
-    for i in arr:
-        adder += i
-    return adder
+def add_up_the_array(thingy):
+    sum = 0
+    for i in thingy.values():
+        sum += i
+    return sum
 
-with open('test.txt') as raw_intput:
+with open('data.txt') as raw_intput:
     #this dictionary will hold the memory address as the key and 
     #the value will be integer value of the mem_operation we did on whatever bitmask we had
     smart_dict = {}
@@ -43,12 +41,13 @@ with open('test.txt') as raw_intput:
         if splitted[0] == 'mask':
             current_mask = splitted[1]
         elif int(splitted[0][4:-1]) in smart_dict.keys():
-            print('Mask', current_mask)
+            # print('Mask', current_mask)
             address = int(splitted[0][4:-1])
             # print('it is in the motherfucking smart dictionary', address)
-            smart_dict[address] = mem_operation(current_mask, smart_dict[address])
+            # print("repeat", smart_dict[address], current_mask)
+            smart_dict[address] = mem_operation(current_mask, value)
         else:
-            print('amsk', current_mask)
+            # print('amsk', current_mask)
             #so here we get a change in the memory
             #so this piece of code needs to 
                 #change the mem using the mask
@@ -57,4 +56,4 @@ with open('test.txt') as raw_intput:
             # print(mem_operation(current_mask, value))
             address = int(splitted[0][4:-1])
             smart_dict[address] = mem_operation(current_mask, value)
-    print(smart_dict)
+    print(add_up_the_array(smart_dict))

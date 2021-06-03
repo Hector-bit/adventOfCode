@@ -9,3 +9,7 @@ Day 14
             ok to bit masks git priority and so the values of the incoming byte is only put in if the value is null 'x'
 
             that took way too long and im not very proud of myself, oh well at least im getting back into the rythm of things
+    
+    Part Two:
+        Confusing so, I still don't understand the problem so imma keep reading
+        

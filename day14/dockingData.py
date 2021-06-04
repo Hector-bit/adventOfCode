@@ -1,6 +1,3 @@
-
-
-
 def mem_operation(bitmask, value):
     loopMe = list(bin(int(value))[2:])
     bitArray = list(bitmask)[0:-1]

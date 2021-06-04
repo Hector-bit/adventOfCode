@@ -1,17 +1,25 @@
 def permutations(dictionary, value, perma):
     #loop through perma until your get an x, then branch
-    for i in range(len(perma)):
-        if perma[i] == 'X':
-            mk_zero = perma.copy()
-            mk_one = perma.copy()
-            mk_zero[i] = '0'
-            mk_one[i] = '1'
-            permutations(dictionary, value, mk_zero)
-            permutations(dictionary, value, mk_one)
+    #we add to the dictionary once we don't have any X's
     the_addy = "".join(perma)
+    looky = the_addy.find('X')
+    if looky != -1:
+        mk_zero = perma.copy()
+        mk_one = perma.copy()
+        mk_zero[looky] = '0'
+        mk_one[looky] = '1'
+        permutations(dictionary, value, mk_zero)
+        permutations(dictionary, value, mk_one)    
+    # for i in range(len(perma)):
+    #     if perma[i] == 'X':
+    #         mk_zero = perma.copy()
+    #         mk_one = perma.copy()
+    #         mk_zero[i] = '0'
+    #         mk_one[i] = '1'
+    #         permutations(dictionary, value, mk_zero)
+    #         permutations(dictionary, value, mk_one)
     if the_addy.isdigit() == False:
         return
-    print(the_addy)
     dictionary[the_addy] = value
 
 def mem_operation(bitmask, value, address, dictionary):
@@ -39,10 +47,15 @@ def mem_operation(bitmask, value, address, dictionary):
 def add_up_the_array(thingy):
     sum = 0
     for i in thingy.values():
-        sum += i
+        if i.isdigit() == False:
+            num = int(i[:-1])
+            sum += num
+        else:
+            num = int(i)
+            sum += num
     return sum
 
-with open('test.txt') as raw_intput:
+with open('data.txt') as raw_intput:
     smart_dict = {}
     current_mask = 'Nothing'
     for i in raw_intput:
@@ -54,8 +67,8 @@ with open('test.txt') as raw_intput:
         #here we get the permutations of the memory val and then 
         #write the value to all the permutations
         else:
-            address = int(splitted[0][4:-1])
             #allow past address to be overwritten
             #also we want to modify the smart_dict var so we can use it with the add_up function
+            address = int(splitted[0][4:-1])
             mem_operation(current_mask, value, address, smart_dict)
-    print(smart_dict)
+    print(add_up_the_array(smart_dict))

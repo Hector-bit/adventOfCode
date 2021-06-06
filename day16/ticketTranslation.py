@@ -21,6 +21,9 @@
 
 # your ticket:
 # 163,151,149,67,71,79,109,61,83,137,89,59,53,179,73,157,139,173,131,167
+from os import error
+
+
 def arr_maker(str):
     smart_arr = []
     with open(str) as raw_input:
@@ -28,7 +31,7 @@ def arr_maker(str):
             two = i.split('-')
             start = int(two[0])
             end = int(two[1])
-            for num in range(start, end):
+            for num in range(start, end + 1):
                 smart_arr.append(num)
     return smart_arr
 
@@ -39,9 +42,14 @@ def invalidRate():
 with open("data.txt") as raw_input:
     valid_times = arr_maker("vaildTimes.txt")
     sum_of_invalids = 0
+    valid_tickets = []
     for i in raw_input:
+        errors = 0
         new_arr = i.split(",")
         for j in new_arr:
             if int(j) not in valid_times:
                 sum_of_invalids += int(j)
-    print(sum_of_invalids)
+                errors += 1
+        if errors == 0:
+            valid_tickets.append(i[:-1])
+    print(valid_tickets)

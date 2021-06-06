@@ -1,0 +1,20 @@
+179 departure location: 13
+89 departure station: 10
+61 departure platform: 7
+173 departure track: 17
+167 departure date: 19
+139 departure time: 16
+arrival location: 1
+arrival station: 5
+arrival platform: 8
+arrival track: 0
+class: 12
+duration: 4
+price: 14
+route: 11
+row: 2
+seat: 9
+train: 3
+type: 6
+wagon: 15
+zone: 18

@@ -1,6 +1,6 @@
 def countAlivePoints(dictionary):
     thingy = 0
-    print(dictionary)
+    # print(dictionary)
     for i in dictionary.values():
         if i == 'ACTIVE':
             thingy += 1
@@ -27,6 +27,9 @@ def addboxes(book, boxMethod):
     for thing in add:
         book[thing] = "INACTIVE"
 
+def setBox(cb):
+    return [(cb[0]+1, cb[1], cb[2]),(cb[0] + 1, cb[1] + 1, cb[2]),(cb[0], cb[1] + 1, cb[2]),(cb[0] + -1, cb[1] + 1, cb[2]),(cb[0] + -1, cb[1], cb[2]), (cb[0]-1, cb[1]-1, cb[2]),(cb[0], cb[1]-1, cb[2]) ,(cb[0] + 1, cb[1]-1, cb[2]) ,(cb[0]+1, cb[1], cb[2]-1),(cb[0] + 1, cb[1]+1,cb[2]-1),(cb[0], cb[1]+1,cb[2]-1),(cb[0]+-1, cb[1]+1,cb[2]-1),(cb[0]+-1, cb[1], cb[2]-1),(cb[0]+-1,cb[1]-1,cb[2]-1),(cb[0], cb[1]-1,cb[2]-1),(cb[0]+1,cb[1]-1,cb[2]-1),(cb[0]+1, cb[1], cb[2]+1),(cb[0] + 1,cb[1]+1,cb[2]+1),(cb[0], cb[1]+1,cb[2]+1),(cb[0]+-1,cb[1]+1,cb[2]+1),(cb[0]-1, cb[1], cb[2]+1),(cb[0]-1,cb[1]-1,cb[2]+1),(cb[0], cb[1]-1,cb[2]+1),(cb[0]+1,cb[1]-1,cb[2]+1),(cb[0],  cb[1], cb[2]+1),(cb[0], cb[1], cb[2]-1)]
+
 def cycle(cycles, dict):
     #go through the dictionary and apply the rules
     for _ in range(cycles):
@@ -36,8 +39,8 @@ def cycle(cycles, dict):
         activatePoint = []
         #make sure all the boxMethods points are in the dictionary
         addboxes(dict, boxMethod.copy())
-        print(boxMethod)
         for cb in dict.keys():
+            boxMethod = setBox(cb)
             curr_point = cb
             #adjust the box as needed
             x = curr_point[0] - prev_point[0]
@@ -83,8 +86,8 @@ with open('test.txt') as raw_input:
             #we want add all these points to the smart_dict
             #key is an array[x,y,z]
             if j == '#':
-                smart_dict[(indexI, indexJ, 0)] = "ACTIVE"
+                smart_dict[(indexJ, -indexI, 0)] = "ACTIVE"
             elif j == '.':
-                smart_dict[(indexI, indexJ, 0)] = "INACTIVE"
+                smart_dict[(indexJ, -indexI, 0)] = "INACTIVE"
     #at this point we can now cycle 6 times using our dictionary
-    print(cycle(6, smart_dict))
+    print(cycle(1, smart_dict))

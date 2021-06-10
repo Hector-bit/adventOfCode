@@ -1,13 +1,16 @@
+
+
 def getNeighbors(someSet):
     # print(someSet, '<========')
-    x, y, z = someSet
+    x, y, z, w = someSet
     # print(x, y, z, 'and then', someSet)
     newSet = set()
     for xdel in range(-1,2):
         for ydel in range(-1,2):
             for zdel in range(-1,2):
-                neigh = (x + xdel, y + ydel, z + zdel)
-                newSet.add(neigh)
+                for wdel in range(-1,2):
+                    neigh = (x + xdel, y + ydel, z + zdel, w + wdel)
+                    newSet.add(neigh)
     newSet.remove(someSet)
     return newSet
 
@@ -34,12 +37,12 @@ def stepSimulation(activeNodes):
     # print(activationCounts)
     return newNodes
 
-with open('data.txt') as raw_input:
+with open('test.txt') as raw_input:
     mySet = set()
     for indexI, i in enumerate(raw_input):
         for indexJ, j in enumerate(i):
             if j == "#":
-                mySet.add((indexJ, indexI, 0))
+                mySet.add((indexJ, indexI, 0, 0))
     state = mySet
     for i in range(6):
         state = stepSimulation(state)

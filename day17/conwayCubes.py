@@ -6,6 +6,27 @@ def countAlivePoints(dictionary):
             thingy += 1
     return thingy
 
+def addboxes(book, boxMethod):
+    add = []
+    prev_point = (0,0,0)
+    for i in book.keys():
+        for check in boxMethod:
+            if check not in book.keys():
+                add.append(check)
+        curr_point = i
+        #adjust the box as needed
+        x = curr_point[0] - prev_point[0]
+        y = curr_point[1] - prev_point[1]
+        z = curr_point[2] - prev_point[2]
+        for index, num in enumerate(boxMethod):
+            rx = num[0] + x
+            ry = num[1] + y
+            rz = num[2] + z
+            boxMethod[index] = (rx, ry, rz)
+        prev_point = i
+    for thing in add:
+        book[thing] = "INACTIVE"
+
 def cycle(cycles, dict):
     #go through the dictionary and apply the rules
     for _ in range(cycles):
@@ -14,9 +35,8 @@ def cycle(cycles, dict):
         destroyPoint = []
         activatePoint = []
         #make sure all the boxMethods points are in the dictionary
-        for check in boxMethod:
-            if check not in dict.keys():
-                dict[check] = "INACTIVE"
+        addboxes(dict, boxMethod.copy())
+        print(boxMethod)
         for cb in dict.keys():
             curr_point = cb
             #adjust the box as needed

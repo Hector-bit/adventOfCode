@@ -25,3 +25,11 @@ def rr(n, arr):
     print(turn, num)
 
 rr(30000000 - 1, data)
+
+
+
+
+
+
+
+2hnqs   tyt

@@ -10,3 +10,6 @@ Day 17:
         My plan:
             1. I want to fill a dictionary useing the given data
             2. Then from there cycle 6 times using the given rules
+    
+    Part Two -
+        Its the same thing, same data, just adding one more dimensions

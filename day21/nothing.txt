@@ -1,0 +1,9 @@
+{'nuts': ['dqsbql', 'mvqkdj', 'msfmt', 'hbhsx'], 
+'soy': ['msfmt', 'ggsz'], 
+'fish': ['ktlh', 'dqsbql'], 
+'eggs': ['gkcplx', 'dqsbql'], 
+'dairy': ['gkcplx', 'dqsbql', 'ppdplc', 'ktlh'], 
+'wheat': ['hbhsx', 'ktlh'], 
+'shellfish': ['ktlh', 'mvqkdj'], 
+'sesame': ['dqsbql', 'gkcplx'], 
+'egg': ['xhksjm', 'mhzdcc', 'kvgbhx', 'ngpq', 'rkgb', 'nlh', 'ppdplc', 'qbrqsr', 'gbxk', 'ngqg', 'drnrd', 'phbrht', 'zrtr', 'dq', 'rgfx', 'qvxntmh', 'dnkcf', 'phbhgqh', 'mvqkdj', 'rrjjt', 'fjbqn', 'nkmxp', 'xdsxjv', 'cjxgg', 'ktlh', 'kctf', 'xmrd', 'zgvqnlv', 'blbl', 'msfmt', 'fdfr', 'cjcvh', 'tsfx', 'sjlk', 'lgxx', 'vhchvg', 'ggsz', 'sqzfbq', 'svztk', 'lhtqk', 'zsxfl', 'nvsd', 'vhdzgz', 'gkcplx', 'ssbrn', 'lcqn', 'rqqf', 'kmfj', 'vcnrl', 'mvvbb', 'hbhsx', 'pbhvldj', 'gspk', 'tmkc', 'hpqf', 'kddggl', 'nmdv', 'xbp', 'cdvdt', 'ktv', 'xctnhp']}

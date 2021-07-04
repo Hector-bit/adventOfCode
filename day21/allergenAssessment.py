@@ -4,17 +4,19 @@ mylist = []
 mydict = {}
 final = {}
 
-with open('test.txt') as raw_input:
+with open('data.txt') as raw_input:
     for i in raw_input:
         # print(i)
         splitted = i.split("(")
         # print(splitted)
         # print(str(splitted[0]))
         language = splitted[0][:-1].split(" ")
-        print(language)
+        # print(language)
+        # print(mylist)
         # if language not in mylist:
         mylist.append(language)
         allergens = splitted[1][:-2].replace("contains ", "").split(", ")
+        print(allergens)
         # print(allergens)
         for j in allergens:
             if j not in mydict.keys():
@@ -28,7 +30,7 @@ with open('test.txt') as raw_input:
                         # print(language, 'then', copy)
                         save.append(copy)
                 mydict[j] = save
-    # print(mydict)
+    print(mydict)
     while len(mydict) > 0:
         #loops through keys of mydict
         for i in mydict.keys():
@@ -50,6 +52,7 @@ with open('test.txt') as raw_input:
     notallergens = 0
     for counting in mylist:
         for oneMore in counting:
+            print(oneMore)
             if oneMore not in final:
                 notallergens +=1
     print(mylist)

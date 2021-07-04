@@ -1,9 +1,15 @@
-def math(str):
-    print(str)
+def mathStuff(str):
+    # print('HERE: ', str)
+    splitted = str.split(' ')
+    print(splitted)
+    for i in splitted:
+        if i == '*'
+num = 0
 
 def recurse(str):
     #this takes a line of math the returns a number
-    num = None
+    global num
+    num = 0
     for index, i in enumerate(str):
         if i == '(':
             remaining = (str[index+1:])
@@ -14,10 +20,10 @@ def recurse(str):
                 elif j == ')':
                     #do some math for the line
                     #a number is returned
-                    print('found end')
-                else:
-                    splitted = remaining.split(' ')
-                    print(splitted)
+                    num += mathStuff(remaining[:ind])
+                # else:
+                #     splitted = remaining.split(' ')
+                #     print(splitted)
     return num
 
 

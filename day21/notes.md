@@ -6,3 +6,6 @@ day 21:
         I just did a process of elimination solution,
         I was banking on the fact that there will be at least
         one allergen that has one possible translation
+    
+    Part Two:
+        just turn that items into a list

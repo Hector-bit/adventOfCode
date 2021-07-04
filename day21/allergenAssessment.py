@@ -4,6 +4,10 @@ mylist = []
 mydict = {}
 final = {}
 
+partTwo = []
+twoDict = {}
+empty = {}
+
 with open('data.txt') as raw_input:
     for i in raw_input:
         # print(i)
@@ -16,7 +20,7 @@ with open('data.txt') as raw_input:
         # if language not in mylist:
         mylist.append(language)
         allergens = splitted[1][:-2].replace("contains ", "").split(", ")
-        print(allergens)
+        # print(allergens)
         # print(allergens)
         for j in allergens:
             if j not in mydict.keys():
@@ -30,7 +34,7 @@ with open('data.txt') as raw_input:
                         # print(language, 'then', copy)
                         save.append(copy)
                 mydict[j] = save
-    print(mydict)
+    # print(mydict)
     while len(mydict) > 0:
         #loops through keys of mydict
         for i in mydict.keys():
@@ -52,9 +56,27 @@ with open('data.txt') as raw_input:
     notallergens = 0
     for counting in mylist:
         for oneMore in counting:
-            print(oneMore)
+            # print(oneMore)
             if oneMore not in final:
                 notallergens +=1
-    print(mylist)
-    print(notallergens)
+    
+    for reverse in final.keys():
+        twoDict[final[reverse]] = reverse
+    
+    for en in twoDict.keys():
+        partTwo.append(en)
+
+    partTwo.sort()
+    print(partTwo, twoDict)
+    for index, k in enumerate(partTwo):
+        # print(index, k)
+        partTwo[index] = twoDict[k]
+
+
+    print(partTwo)
+
+
+    print("Part One", notallergens)
+    print("Part Two", ','.join(partTwo))
+
 

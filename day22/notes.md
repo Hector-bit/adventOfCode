@@ -17,3 +17,7 @@ day22:
             Otherwise, at least one player must not have enough cards left in 
             their deck to recurse; the wiwnner of the round is the player with
             the higher-value card.
+        I hate that I did almost the same thing here as
+        in the solution i found on github
+        the main difference was what I returned vs what
+        the solution returned.

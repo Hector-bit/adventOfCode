@@ -1,132 +1,53 @@
+ 
+import fileinput
+import re
+from collections import deque
+from copy import deepcopy
 
+D1 = deque()
+D2 = deque()
+active_deck = D1
 
-playerOne = []
-playerTwo = []
+L = list([l.strip() for l in fileinput.input('data.txt')])
+for l in L:
+    if 'Player' in l:
+        if '2' in l:
+            active_deck = D2
+    elif l:
+        active_deck.append(int(l))
 
-mylist = []
-
-def historyFunction(history, playerUno, playerDos):
-    if str(playerUno + playerDos) in history:
-        return True
-    return False
-
-def DEEPER(playerUno, playerDos, history):
-    #i only wanna recurse if a new game starts
-    #otherwise play normally
-    while len(playerUno) > 0 and len(playerDos) > 0:
-        # print("---------------")
-        # print(playerUno)
-        # print(playerDos)
-        # print("---------------")
-        inThePast = historyFunction(history, playerUno, playerDos)
-        if inThePast:
-            # print('HISTORy')
-            #give win to playerUno
-            playerUno.append(playerUno[0])
-            playerUno.append(playerDos[0])
-            playerUno.pop(0)
-            playerDos.pop(0)
-            return "UNO"
+t = 0
+def play_game(D1, D2, is_p2):
+    SEEN = set()
+    while D1 and D2:
+        global t
+        t += 1
+        my_key = (tuple(D1),tuple(D2))
+        if my_key in SEEN and is_p2:
+            return True,D1
+        SEEN.add(my_key)
+        c1,c2 = D1.popleft(), D2.popleft()
+        if len(D1)>=c1 and len(D2)>=c2 and is_p2:
+            NEW_D1 = deque([D1[x] for x in range(c1)])
+            NEW_D2 = deque([D2[x] for x in range(c2)])
+            p1_wins,_ = play_game(NEW_D1, NEW_D2, is_p2)
         else:
-            history.append(str(playerUno + playerDos))
-        po = playerUno[0]
-        playerUno.pop(0)
-        pt = playerDos[0]
-        playerDos.pop(0)
-        if po <= len(playerUno) and pt <= len(playerDos):
-            print("NEW GAME")
-            truthMe = DEEPER(playerUno[:po], playerDos[:pt], history)
-            # print(truthMe, "<=======================")
-            if truthMe == "UNO":
-                playerUno.append(po)
-                playerUno.append(pt)
-            elif truthMe == "DOS":
-                playerDos.append(pt)
-                playerDos.append(po)
-        elif po > pt:
-            # print('player uno')
-            playerUno.append(po)
-            playerUno.append(pt)
-            # playerDos.pop(0)
-            # playerUno.pop(0)
-        elif pt > po:
-            # print("player dos")
-            playerDos.append(pt)
-            playerDos.append(po)
-    print('                                 ', playerUno, playerDos)
-    if len(playerUno) == 0:
-        return "DOS"
-    if len(playerDos) == 0:
-        return "UNO"
+            p1_wins = c1>c2
 
-def recursion(playerUno, playerDos, history):
-    #i only wanna recurse if a new game starts
-    #otherwise play normally
-    while len(playerUno) > 0 and len(playerDos) > 0:
-        print("---------------")
-        print(playerUno)
-        print(playerDos)
-        print("---------------")
-        # print(history)
-        inThePast = historyFunction(history, playerUno, playerDos)
-        if inThePast:
-            # print('HISTORy not deeper')
-            #give win to playerUno
-            playerUno.append(playerUno[0])
-            playerUno.append(playerDos[0])
-            playerUno.pop(0)
-            playerDos.pop(0)
-            break
+        if p1_wins:
+            D1.append(c1)
+            D1.append(c2)
         else:
-            history.append(str(playerUno + playerDos))
-        po = playerUno[0]
-        playerUno.pop(0)
-        pt = playerDos[0]
-        playerDos.pop(0)
-        if po <= len(playerUno) and pt <= len(playerDos):
-            print("NEW GAME")
-            truthMe = DEEPER(playerUno[:po], playerDos[:pt], history)
-            # print(truthMe, "<=======================")
-            if truthMe == "DOS":
-                playerUno.append(po)
-                playerUno.append(pt)
-            elif truthMe == "UNO":
-                playerDos.append(pt)
-                playerDos.append(po)
-        elif po > pt:
-            # print('player uno')
-            playerUno.append(po)
-            playerUno.append(pt)
-            # playerDos.pop(0)
-            # playerUno.pop(0)
-        elif pt > po:
-            # print("player dos")
-            playerDos.append(pt)
-            playerDos.append(po)
-    return playerUno, playerDos
+            D2.append(c2)
+            D2.append(c1)
+    if D1:
+        return True,D1
+    else:
+        return False,D2
 
-with open('test.txt') as raw_input:
-    for i in raw_input:
-        if i[:-1].isdigit():
-            mylist.append(int(i[:-1]))
-    playerOne = mylist[:len(mylist)>>1]
-    playerTwo = mylist[len(mylist)>>1:]
-    # print(playerOne)
-    # print(playerTwo)
-    #now you may play until a player has lost all their cards
-    history = []
-    while len(playerOne) > 0 and len(playerTwo) > 0:
-        playerOne, playerTwo = recursion(playerOne, playerTwo, history)
-    print("====FINAL====")
-    print(playerOne)
-    print(playerTwo)
-    sum = len(playerTwo)
-    total = 0
-    sum2 = len(playerOne)
-    total2 = 0
-    for index, i in enumerate(playerTwo):
-        total += (sum - index) * i
-    for indext, it in enumerate(playerOne):
-        total2 += (sum2 - indext) * it
-    print(total)
-    print(total2)
+for p2 in [False,True]:
+    p1,winner_deck = play_game(deepcopy(D1),deepcopy(D2),p2)
+    score = 0
+    for i,c in enumerate(winner_deck):
+        score += (len(winner_deck)-i)*c
+    print(score)

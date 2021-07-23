@@ -8,7 +8,7 @@ data = [7,1,2,6,4,3,5,8,9]
         #3) the crab places the cups it picked up down after the destination cup has been chosen,
             # they keep the same order
         #4) the crab selcts a new current cup, which is whatever comes after 1 spot going clockwise
-def crabDancer(arr, x):
+def crabDancerPartOne(arr, x):
     currentCup = 0
     for i in range(x):
         following = [arr[currentCup+i] for i in range(1,4)]
@@ -23,7 +23,7 @@ def crabDancer(arr, x):
                 if i == target:
                     destinationCup = i
             target -=1
-        # print(destinationCup)
+        print(destinationCup)
         for index, j in enumerate(result):
             if j == destinationCup:
                 newArr = result[:index+1] + following + result[index+1:]
@@ -31,7 +31,12 @@ def crabDancer(arr, x):
                 # print(newArr)
         arr = newArr
         currentCup 
-    print(arr)
+    print("CHECKPOINT")
+    for inde, i in enumerate(arr):
+        if i == 1:
+            return arr[inde+1], arr[inde+2]
 
+newArray = test + [i for i in range(10, 1000001)]
+# print(newArray)
 
-crabDancer(data, 100)
+crabDancerPartOne(newArray, 10000000)

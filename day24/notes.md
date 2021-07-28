@@ -17,3 +17,10 @@ Day 24:
 		Plan: Do some graph stuff, have nodes that are created if you 
 		go in a direction you have not gone before, then recursively
 		count all the nodes that have been made
+
+
+To whom it may concern:
+We, Virginia Garcia & Joaquin Martinez are the lawful custodial parents of Joshua Martinez-Garcia
+Date of Birth: July 9, 2015
+Place of Birth: WASHINGTON, USA
+Joshua Martinez-Garcia, has our consent to travel with Hector Martinez-Garcia to visit Oaxaca, Mexico during the period of {dates}

@@ -1,7 +1,5 @@
 def getNeighbors(someSet):
-    # print(someSet, '<========')
     x, y, z = someSet
-    # print(x, y, z, 'and then', someSet)
     newSet = set()
     for xdel in range(-1,2):
         for ydel in range(-1,2):
@@ -17,7 +15,6 @@ def stepSimulation(activeNodes):
     for i in activeNodes:
         activeNeighbors = 0
         neighbors = getNeighbors(i)
-        # print(neighbors)
         for n in neighbors:
             if n in activeNodes:
                 activeNeighbors += 1
@@ -31,7 +28,6 @@ def stepSimulation(activeNodes):
     for potential in activationCounts:
         if activationCounts[potential] == 3:
             newNodes.add(potential)
-    # print(activationCounts)
     return newNodes
 
 with open('data.txt') as raw_input:

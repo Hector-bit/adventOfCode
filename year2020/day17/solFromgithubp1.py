@@ -17,6 +17,7 @@ def solve(p1, cycles):
             for dx, dy, dz, dw in itertools.product([-1,0,1], repeat=4):
                 if w+dw==0 or (not p1):
                     CHECK.add((x+dx, y+dy, z+dz, w,dw))
-
-print(solve(True))
+    print("here", len(CHECK), 'other', len(NEW_ON))
+    print(ON)
+print(solve(True, 5))
 

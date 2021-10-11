@@ -1,4 +1,3 @@
-
 def indirectOrbits(orbitee, dictionary):
     IOcount = 0
     DOcount = 0

@@ -1,13 +1,5 @@
 
 with open("data.txt") as raw_input:
-    rows = 0
-    counterArr = []
-    #create counter array to count # of one's in each coloumn
-    for i in raw_input:
-        for x in i:
-            if x == '0' or x =='1':
-                counterArr.append(0)
-        break
     oxygenArray = []
     oxygenRating = None
     co2Array = []
@@ -18,25 +10,23 @@ with open("data.txt") as raw_input:
         ones = 0
         zeros = 0
         for i in twodarray:
-            if twodarray[index] == "1":
+            if i[index] == "1":
                 ones += 1
-            elif twodarray[index] == "0":
+            elif i[index] == "0":
                 zeros += 1
         if ones > zeros:
-            return ones
+            return 1
         elif zeros > ones:
-            return zeros
+            return 0
         elif ones == zeros:
             return "same"
 
     def removewith(twodarray, index, num):
         returner = []
         for i in twodarray:
-            for j in i:
-                if i[index] != num:
-                    returner.append(i)
+            if i[index] == str(num):
+                returner.append(i)
         return returner
-    #put the raw_inputs into the oxygen and co3 arrays
     
     def reduceArray(twodarray, bigorsmallvalue):
         if bigorsmallvalue == "big":
@@ -49,9 +39,16 @@ with open("data.txt") as raw_input:
                     twodarray = removewith(twodarray, index, most)
                 if len(twodarray) == 1:
                     return twodarray[0]
-        if bigorsmallvalue == "small":
+        elif bigorsmallvalue == "small":
             for index, i in enumerate(twodarray):
-                least = getCountOnRow(twodarray, index)
+                most = getCountOnRow(twodarray, index)
+                least = None
+                if most == 1:
+                    least = 0
+                elif most == 0:
+                    least = 1
+                elif most == "same":
+                    least = "same"
                 if least == "same":
                     #do something else
                     twodarray = removewith(twodarray, index, 0)
@@ -59,19 +56,18 @@ with open("data.txt") as raw_input:
                     twodarray = removewith(twodarray, index, least)
                 if len(twodarray) == 1:
                     return twodarray[0]
-
+    #fills oxygenarry and co2array with all values 
     for i in raw_input:
-        oxygenArray.append(i)
-        co2Array.append(i)
+        oxygenArray.append(i[:-1])
+        co2Array.append(i[:-1])
     #loop through and romove until there is only one value left
-            
     oxygenRating = reduceArray(oxygenArray, "big")
-    co2Rating = reduceArray(co2Rating, "small")
+    co2Rating = reduceArray(co2Array, "small")
     print('ORATING', oxygenRating)
     print('co2Rating', co2Rating)
     #converting gamma to int and epsilon to int
-    a = [str(x) for x in gamma]
-    b = [str(x) for x in epsilon]
+    a = [str(x) for x in oxygenRating]
+    b = [str(x) for x in co2Rating]
     a = "".join(a)
     b = "".join(b)
     print(a)

@@ -8,6 +8,21 @@ def minAndMax(arr):
             biggest = i
     return [smallest, biggest]
 
+memor = {}
+
+def sumOfSum(nump):
+    fuelCost = None
+    if nump in memor.keys():
+        fuelCost = memor[nump]
+    else:
+        total = 0
+        for i in range(1, nump+1):
+            total += i
+        fuelCost = total
+        memor[nump] = total
+
+    return fuelCost
+
 
 with open("data.txt") as raw_input:
     crabs = raw_input.readline().strip("\n").split(",")
@@ -18,7 +33,8 @@ with open("data.txt") as raw_input:
     for i in range(myRange[0], myRange[1]):
         accCost = []
         for j in crabs:
-            accCost.append(abs(i-j))
+            steps = (abs(i-j))
+            accCost.append(sumOfSum(steps))
         totalCost = sum(accCost)
         cheapest.append(totalCost)
     print(min(cheapest))

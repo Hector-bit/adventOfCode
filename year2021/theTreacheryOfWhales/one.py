@@ -1,1 +1,3 @@
-#start of day 7 of advent of code
+with open("test.txt") as raw_input:
+    for i in raw_input:
+        print(i)

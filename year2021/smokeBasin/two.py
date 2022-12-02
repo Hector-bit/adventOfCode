@@ -12,7 +12,7 @@ with open('test.txt') as raw_input:
             print(i)
     #returns arr of lowpoints
     def LowPoints(arr):
-        lp = []
+        lp = [] #what is this??
         countme = 0
         for indexI, i in enumerate(arr):
             for indexJ, j in enumerate(i):
@@ -53,15 +53,65 @@ with open('test.txt') as raw_input:
         print('counted this many: ' + str(countme))
         return lp
 
+
+    def CountBasins(floorArr):
+
+        def NeighborCheck(coor):
+            basinNeighbors = []
+            y = coor[0]
+            x = coor[1]
+            floorPiece = floorArr[y][x]
+            if floorPiece != '9' or floorPiece != '#':
+                #start counting adjacent nums
+                floorArr[coor[0]][coor[1]] = '#'
+                #add neightbors to watchlist
+                localNeightbors = [[y-1, x],[y, x+1],[y-1, x],[y, x-1]]
+                for _ in localNeightbors:
+                    neigh = floorArr[_[0]][_[1]]
+                    if neigh != '#' and neigh != '9' and neigh != 9:
+                        basinNeighbors.append(_)
+            return basinNeighbors
+
+        basinsArr = []
+        for indexI, i in enumerate(floorArr):
+            for indexJ, j in enumerate(i):
+                #Now we can count individaul spots
+                basinSize = 0
+                basinNeighbors = []
+                if j != '9' and j != '#' and j !=9:
+                    #start counting adjacent nums
+                    basinSize += 1
+                    floorArr[indexI][indexJ] = '#'
+                    #add neightbors to watchlist
+                    basinNeighbors = [[indexI-1, indexJ],[indexI+1, indexJ],[indexI, indexJ+1],[indexI, indexJ-1]]
+                while len(basinNeighbors) != 0:
+                    print(basinNeighbors)
+                    aNeighbor = basinNeighbors.pop()
+                    if aNeighbor != '9' and aNeighbor != '#':
+                        floorArr[aNeighbor[0]][aNeighbor[1]] = '#'
+                    moreNeighbors = NeighborCheck(aNeighbor)
+                    for __ in moreNeighbors:
+                        basinNeighbors.append(__)
+                
+                basinsArr.append(basinSize)
+        return basinsArr
+                    
+
     floorMap = []
     for i in raw_input:
         row = []
         snip = i[:-1]
+        row.append('#')
         for j in snip:
             row.append(j)
+        row.append('#')
         floorMap.append(row)
-    print('ROW: ' + str(len(floorMap[0])))
-    print('COL: ' + str(len(floorMap)))
-    lowPoints = LowPoints(floorMap)
-    tot = CountSum(lowPoints)
-    print('TOTAL: ' + str(tot))
+    snip += ('##')
+    coollistthing = ['#' for x in snip]
+    floorMap.append(coollistthing)
+    floorMap.insert(0,coollistthing)
+    PrintFloor(floorMap)
+    basins = CountBasins(floorMap)
+    PrintFloor(floorMap)
+    print('TOTAL: ')
+    print(basins)

@@ -1,0 +1,39 @@
+
+testBlocks = [
+    ['z','n'],
+    ['m','c','d'],
+    ['p']
+]
+
+realBlocks = [
+    ['f','c','p','g','q','r'],
+    ['w','t','c','p'],
+    ['b','h','p','m','c'],
+    ['l','t','q','s','m','p','r'],
+    ['p','h','j','z','v','g','n'],
+    ['d','j','p'],
+    ['l','g','p','z','f','j','t','r'],
+    ['n','l','h','c','f','p','t','j'],
+    ['g','v','z','q','h','t','c','q']
+]
+
+def moveOne(start, destination, arrBlocks):
+    moving = arrBlocks[start].pop(-1)
+    arrBlocks[destination].append(moving)
+
+with open('input.txt') as raw_input:
+    for line in raw_input:
+        line = line.strip('\n')
+        bigsplit = line.split(' ')
+        amountToMove = int(bigsplit[1])
+        movingFrom = int(bigsplit[3])-1
+        movingTo = int(bigsplit[5])-1
+        print('amount:',amountToMove, '| moving from:',movingFrom,'| moving to: ',movingTo)
+        for i in range(amountToMove):
+            moveOne(movingFrom, movingTo, realBlocks)
+    print('FINAL:')
+    tempstr = ''
+    for i in realBlocks:
+        tempstr.append(i[-1])
+    print(tempstr)
+
